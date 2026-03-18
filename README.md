@@ -80,6 +80,7 @@ Or configure a Spring Boot run configuration:
 
 ### Access URLs
 
+- **Fiori Launchpad**: http://localhost:8080/fiori.html
 - **API Base**: http://localhost:8080/
 - **OData Service**: http://localhost:8080/catalog/
 - **Budget Management**: http://localhost:8080/budget/webapp/index.html
@@ -87,8 +88,14 @@ Or configure a Spring Boot run configuration:
 
 ### Mock Users
 
-- **Admin**: `admin` (Roles: Admin, authenticated-user)
-- **User**: `user` (Roles: User, authenticated-user)
+- **Admin**:
+  - Username: `admin`
+  - Password: `admin`
+  - Roles: Admin, authenticated-user
+- **User**:
+  - Username: `user`
+  - Password: `user`
+  - Roles: User, authenticated-user
 
 ## Testing
 
