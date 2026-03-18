@@ -1,0 +1,32 @@
+{
+  "name": "expense-tracker",
+  "version": "1.0.0",
+  "description": "Personal Expense Tracker - CAP Java Application",
+  "scripts": {
+    "build": "mvn clean install",
+    "start": "mvn -f srv/pom.xml spring-boot:run",
+    "dev": "cds watch",
+    "clean": "mvn clean && rm -rf srv/target srv/src/gen"
+  },
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "sql"
+      },
+      "auth": {
+        "kind": "dummy"
+      }
+    }
+  },
+  "sapux": [
+    "app/transactions",
+    "app/budget"
+  ],
+  "devDependencies": {
+    "@sap/cds-dk": "^8"
+  },
+  "engines": {
+    "node": ">=18",
+    "java": ">=21"
+  }
+}

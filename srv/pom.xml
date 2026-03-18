@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- Parent POM -->
+    <parent>
+        <groupId>com.dalrae.demo</groupId>
+        <artifactId>expense-tracker-parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>expense-tracker</artifactId>
+    <packaging>jar</packaging>
+
+    <name>Expense Tracker - Service</name>
+    <description>CAP Java Service Module for Expense Tracker</description>
+
+    <dependencies>
+        <!-- CAP Java SDK -->
+        <dependency>
+            <groupId>com.sap.cds</groupId>
+            <artifactId>cds-starter-spring-boot</artifactId>
+        </dependency>
+
+        <!-- OData V4 Protocol Adapter -->
+        <dependency>
+            <groupId>com.sap.cds</groupId>
+            <artifactId>cds-adapter-odata-v4</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- H2 Database for local development -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- HANA Cloud Database Driver -->
+        <dependency>
+            <groupId>com.sap.cloud.db.jdbc</groupId>
+            <artifactId>ngdbc</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- Spring Boot XSUAA Security -->
+        <dependency>
+            <groupId>com.sap.cloud.security.xsuaa</groupId>
+            <artifactId>xsuaa-spring-boot-starter</artifactId>
+        </dependency>
+
+        <!-- Spring Boot Starter Web -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- Spring Boot Starter Security -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <!-- Lombok for reducing boilerplate -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- Spring Boot DevTools -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- Testing -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Mockito for mocking -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- AssertJ for fluent assertions -->
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <!-- Spring Boot Maven Plugin -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <!-- CDS Maven Plugin for CDS build -->
+            <plugin>
+                <groupId>com.sap.cds</groupId>
+                <artifactId>cds-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>cds.clean</id>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>cds.install-cdsdk</id>
+                        <goals>
+                            <goal>install-cdsdk</goal>
+                        </goals>
+                        <configuration>
+                            <version>${cds.install-cdsdk.version}</version>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>cds.generate</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <basePackage>cds.gen</basePackage>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>cds.build</id>
+                        <goals>
+                            <goal>cds</goal>
+                        </goals>
+                        <configuration>
+                            <commands>
+                                <command>build --for java</command>
+                                <command>deploy --to h2 --dry > srv/src/main/resources/schema.sql</command>
+                            </commands>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Maven Compiler Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

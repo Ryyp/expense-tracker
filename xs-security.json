@@ -1,0 +1,56 @@
+{
+  "xsappname": "expense-tracker",
+  "tenant-mode": "dedicated",
+  "description": "Security descriptor for Expense Tracker application",
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.Admin",
+      "description": "Admin role with full access to Budget and Transactions"
+    },
+    {
+      "name": "$XSAPPNAME.User",
+      "description": "User role with transaction access only"
+    }
+  ],
+  "attributes": [],
+  "role-templates": [
+    {
+      "name": "Admin",
+      "description": "Administrator with full access to Budget and Transactions",
+      "scope-references": [
+        "$XSAPPNAME.Admin"
+      ],
+      "attribute-references": []
+    },
+    {
+      "name": "User",
+      "description": "User with access to Transactions only",
+      "scope-references": [
+        "$XSAPPNAME.User"
+      ],
+      "attribute-references": []
+    }
+  ],
+  "role-collections": [
+    {
+      "name": "ExpenseTracker_Admin",
+      "description": "Expense Tracker Administrator",
+      "role-template-references": [
+        "$XSAPPNAME.Admin"
+      ]
+    },
+    {
+      "name": "ExpenseTracker_User",
+      "description": "Expense Tracker User",
+      "role-template-references": [
+        "$XSAPPNAME.User"
+      ]
+    }
+  ],
+  "oauth2-configuration": {
+    "redirect-uris": [
+      "https://*.cfapps.*.hana.ondemand.com/**",
+      "http://localhost:5000/**"
+    ]
+  }
+}

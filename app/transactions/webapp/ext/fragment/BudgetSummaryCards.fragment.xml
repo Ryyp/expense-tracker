@@ -1,0 +1,80 @@
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:card="sap.f.cards">
+    <VBox class="sapUiSmallMargin">
+        <HBox class="sapUiTinyMarginBottom">
+            <!-- Total Budget Card -->
+            <f:Card class="sapUiTinyMarginEnd" width="220px">
+                <f:header>
+                    <card:Header
+                        title="Total Budget"
+                        subtitle="Overall Budget"/>
+                </f:header>
+                <f:content>
+                    <VBox class="sapUiSmallMargin" alignItems="Center">
+                        <ObjectNumber
+                            number="{budgetSummary>/totalBudget}"
+                            unit="{budgetSummary>/currency}"
+                            emphasized="true"/>
+                    </VBox>
+                </f:content>
+            </f:Card>
+
+            <!-- Spent Amount Card -->
+            <f:Card class="sapUiTinyMarginEnd" width="220px">
+                <f:header>
+                    <card:Header
+                        title="Spent Amount"
+                        subtitle="Total Expenses"/>
+                </f:header>
+                <f:content>
+                    <VBox class="sapUiSmallMargin" alignItems="Center">
+                        <ObjectNumber
+                            number="{budgetSummary>/spentAmount}"
+                            unit="{budgetSummary>/currency}"
+                            state="Error"
+                            emphasized="true"/>
+                    </VBox>
+                </f:content>
+            </f:Card>
+
+            <!-- Remaining Budget Card -->
+            <f:Card class="sapUiTinyMarginEnd" width="220px">
+                <f:header>
+                    <card:Header
+                        title="Remaining Budget"
+                        subtitle="Available to Spend"/>
+                </f:header>
+                <f:content>
+                    <VBox class="sapUiSmallMargin" alignItems="Center">
+                        <ObjectNumber
+                            number="{budgetSummary>/remainingAmount}"
+                            unit="{budgetSummary>/currency}"
+                            state="{= ${budgetSummary>/remainingAmount} > 0 ? 'Success' : 'Error'}"
+                            emphasized="true"/>
+                    </VBox>
+                </f:content>
+            </f:Card>
+
+            <!-- Budget Utilization Card -->
+            <f:Card width="220px">
+                <f:header>
+                    <card:Header
+                        title="Budget Utilization"
+                        subtitle="Percentage Used"/>
+                </f:header>
+                <f:content>
+                    <VBox class="sapUiSmallMargin" alignItems="Center">
+                        <ObjectNumber
+                            number="{budgetSummary>/budgetUtilization}"
+                            unit="%"
+                            state="{= ${budgetSummary>/budgetUtilization} > 90 ? 'Error' : (${budgetSummary>/budgetUtilization} > 70 ? 'Warning' : 'Success')}"
+                            emphasized="true"/>
+                    </VBox>
+                </f:content>
+            </f:Card>
+        </HBox>
+    </VBox>
+</core:FragmentDefinition>

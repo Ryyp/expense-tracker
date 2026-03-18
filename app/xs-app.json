@@ -1,0 +1,31 @@
+{
+  "welcomeFile": "/index.html",
+  "authenticationMethod": "route",
+  "routes": [
+    {
+      "source": "^/catalog/(.*)$",
+      "target": "$1",
+      "destination": "srv-api",
+      "authenticationType": "xsuaa",
+      "csrfProtection": true
+    },
+    {
+      "source": "^/budget/(.*)$",
+      "target": "/budget/$1",
+      "localDir": "budget/webapp",
+      "authenticationType": "xsuaa"
+    },
+    {
+      "source": "^/transactions/(.*)$",
+      "target": "/transactions/$1",
+      "localDir": "transactions/webapp",
+      "authenticationType": "xsuaa"
+    },
+    {
+      "source": "^/(.*)$",
+      "target": "$1",
+      "localDir": ".",
+      "authenticationType": "xsuaa"
+    }
+  ]
+}

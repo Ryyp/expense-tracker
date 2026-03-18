@@ -1,0 +1,68 @@
+# Database files
+*.db
+*.db-shm
+*.db-wal
+expense-tracker.db*
+
+# Node modules
+node_modules/
+package-lock.json
+
+# Maven
+srv/target/
+srv/src/gen/
+target/
+.mvn/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.DS_Store
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.swp
+*~
+
+# Build artifacts
+*.class
+*.jar
+*.war
+
+# Environment
+.env
+.env.local
+
+# Claude AI assistant files
+.claude/
+
+# CDS generated files
+srv/src/main/resources/schema.sql
+srv/src/main/resources/edmx/
+
+# Documentation (if you don't want to upload)
+# docs/
+
+# Test reports
+srv/target/surefire-reports/
+srv/target/site/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Compiled output
+dist/
+gen/
+*.map

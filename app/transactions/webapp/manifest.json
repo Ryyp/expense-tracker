@@ -1,0 +1,137 @@
+{
+  "_version": "1.59.0",
+  "sap.app": {
+    "id": "expense.tracker.transactions",
+    "type": "application",
+    "title": "Transactions",
+    "description": "Manage Expense Transactions",
+    "applicationVersion": {
+      "version": "1.0.0"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/catalog/",
+        "type": "OData",
+        "settings": {
+          "odataVersion": "4.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "extends": {
+      "extensions": {
+        "sap.ui.controllerExtensions": {
+          "sap.fe.templates.ListReport.ListReportController": {
+            "controllerName": "expense.tracker.transactions.ext.controller.ListReportExt"
+          }
+        }
+      }
+    },
+    "dependencies": {
+      "minUI5Version": "1.120.0",
+      "libs": {
+        "sap.fe.templates": {},
+        "sap.f": {},
+        "sap.m": {},
+        "sap.ui.core": {}
+      }
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "expense.tracker.transactions.i18n.i18n"
+        }
+      },
+      "": {
+        "type": "sap.ui.model.odata.v4.ODataModel",
+        "dataSource": "mainService",
+        "settings": {
+          "synchronizationMode": "None",
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      }
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "type": "Component",
+        "async": true
+      },
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "TransactionsList",
+          "target": "TransactionsList"
+        },
+        {
+          "pattern": "Transactions({key}):?query:",
+          "name": "TransactionsObjectPage",
+          "target": "TransactionsObjectPage"
+        }
+      ],
+      "targets": {
+        "TransactionsList": {
+          "type": "Component",
+          "id": "TransactionsList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/Transactions",
+              "variantManagement": "Page",
+              "initialLoad": true,
+              "navigation": {
+                "Transactions": {
+                  "detail": {
+                    "route": "TransactionsObjectPage"
+                  }
+                }
+              },
+              "content": {
+                "header": {
+                  "visible": true,
+                  "facets": {
+                    "BudgetSummary": {
+                      "template": "expense.tracker.transactions.ext.fragment.BudgetSummaryCards",
+                      "title": "Budget Overview"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "TransactionsObjectPage": {
+          "type": "Component",
+          "id": "TransactionsObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "contextPath": "/Transactions",
+              "editableHeaderContent": false
+            }
+          }
+        }
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  }
+}

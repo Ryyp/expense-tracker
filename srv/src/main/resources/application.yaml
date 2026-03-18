@@ -1,0 +1,103 @@
+---
+spring:
+  application:
+    name: expense-tracker
+
+  # DataSource configuration for local development (H2 in-memory)
+  datasource:
+    url: jdbc:h2:mem:expense-tracker
+    driver-class-name: org.h2.Driver
+    hikari:
+      maximum-pool-size: 10
+      connection-timeout: 30000
+
+  # H2 Console configuration (optional, for debugging)
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  # JPA/Hibernate configuration
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: 20
+        order_inserts: true
+        order_updates: true
+
+  # Security configuration for local mock users
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/uaa/oauth/token
+
+# CDS Configuration
+cds:
+  dataSource:
+    auto: true
+
+  # SQL configuration
+  sql:
+    supportedLocales: en
+    # Enable automatic schema and data initialization
+    schema:
+      auto-create: true
+    data:
+      auto: true
+
+  # OData configuration
+  odata-v4:
+    endpoint:
+      path: /
+
+  # Security configuration
+  security:
+    authentication:
+      mode: mock
+    mock:
+      users:
+        - name: admin
+          password: admin
+          roles:
+            - Admin
+            - authenticated-user
+        - name: user
+          password: user
+          roles:
+            - User
+            - authenticated-user
+
+# Server configuration
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+# Logging configuration
+logging:
+  level:
+    root: INFO
+    com.dalrae.expensetracker: DEBUG
+    com.sap.cds: INFO
+    org.springframework: INFO
+    org.hibernate: WARN
+
+---
+# Production profile for Cloud Foundry
+spring:
+  config:
+    activate:
+      on-profile: cloud
+
+  # Cloud DataSource (HANA)
+  datasource:
+    hikari:
+      maximum-pool-size: 20
+
+cds:
+  security:
+    authentication:
+      mode: xsuaa

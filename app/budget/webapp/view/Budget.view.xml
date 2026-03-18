@@ -1,0 +1,105 @@
+<mvc:View
+    controllerName="expense.tracker.budget.controller.Budget"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:card="sap.f.cards"
+    xmlns:layout="sap.ui.layout">
+    <Page title="Budget Management">
+        <content>
+            <VBox class="sapUiSmallMargin">
+                <!-- Budget Summary Cards -->
+                <HBox class="sapUiTinyMarginBottom">
+                    <f:Card class="sapUiTinyMarginEnd" width="250px">
+                        <f:header>
+                            <card:Header
+                                title="Total Budget"
+                                statusText="{/totalBudget}"/>
+                        </f:header>
+                        <f:content>
+                            <VBox class="sapUiSmallMargin" alignItems="Center">
+                                <ObjectNumber
+                                    number="{/totalBudget}"
+                                    unit="{/currency}"
+                                    emphasized="true"
+                                    class="sapUiLargeMarginBottom"/>
+                            </VBox>
+                        </f:content>
+                    </f:Card>
+
+                    <f:Card class="sapUiTinyMarginEnd" width="250px">
+                        <f:header>
+                            <card:Header
+                                title="Spent Amount"
+                                statusText="{/spentAmount}"/>
+                        </f:header>
+                        <f:content>
+                            <VBox class="sapUiSmallMargin" alignItems="Center">
+                                <ObjectNumber
+                                    number="{/spentAmount}"
+                                    unit="{/currency}"
+                                    state="Error"
+                                    emphasized="true"
+                                    class="sapUiLargeMarginBottom"/>
+                            </VBox>
+                        </f:content>
+                    </f:Card>
+
+                    <f:Card class="sapUiTinyMarginEnd" width="250px">
+                        <f:header>
+                            <card:Header
+                                title="Remaining Budget"
+                                statusText="{/remainingAmount}"/>
+                        </f:header>
+                        <f:content>
+                            <VBox class="sapUiSmallMargin" alignItems="Center">
+                                <ObjectNumber
+                                    number="{/remainingAmount}"
+                                    unit="{/currency}"
+                                    state="{= ${/remainingAmount} > 0 ? 'Success' : 'Error'}"
+                                    emphasized="true"
+                                    class="sapUiLargeMarginBottom"/>
+                            </VBox>
+                        </f:content>
+                    </f:Card>
+
+                    <f:Card width="250px">
+                        <f:header>
+                            <card:Header
+                                title="Budget Utilization"
+                                statusText="{/budgetUtilization}%"/>
+                        </f:header>
+                        <f:content>
+                            <VBox class="sapUiSmallMargin" alignItems="Center">
+                                <ObjectNumber
+                                    number="{/budgetUtilization}"
+                                    unit="%"
+                                    state="{= ${/budgetUtilization} > 90 ? 'Error' : (${/budgetUtilization} > 70 ? 'Warning' : 'Success')}"
+                                    emphasized="true"
+                                    class="sapUiLargeMarginBottom"/>
+                            </VBox>
+                        </f:content>
+                    </f:Card>
+                </HBox>
+
+                <!-- Set Budget Card -->
+                <f:Card class="sapUiTinyMargin" width="50%">
+                    <f:header>
+                        <card:Header title="Set Budget"/>
+                    </f:header>
+                    <f:content>
+                        <VBox class="sapUiSmallMargin">
+                            <Label text="Budget Amount" labelFor="budgetInput"/>
+                            <Input
+                                id="budgetInput"
+                                type="Number"
+                                placeholder="Enter budget amount"
+                                value="{/amount}"/>
+                            <Button text="Save Budget" press="onSave" type="Emphasized" class="sapUiTinyMarginTop"/>
+                        </VBox>
+                    </f:content>
+                </f:Card>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>
