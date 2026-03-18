@@ -53,14 +53,37 @@ cd ..
 
 ## Running the Application
 
+### Using npm
+
 ```bash
 npm start
 ```
 
-Access at:
-- **Fiori Launchpad**: http://localhost:4004/
-- **Budget Management**: http://localhost:4004/budget/webapp/
-- **Transactions**: http://localhost:4004/transactions/webapp/
+### Using Maven (Spring Boot)
+
+```bash
+cd srv
+mvn spring-boot:run
+```
+
+### Using IntelliJ IDEA
+
+1. Open the project in IntelliJ IDEA
+2. Navigate to `srv/src/main/java/com/dalrae/expensetracker/Application.java`
+3. Right-click on the `Application` class and select **Run 'Application'**
+
+Or configure a Spring Boot run configuration:
+1. Open **Run/Debug Configurations**
+2. Click **+ → Spring Boot**
+3. Set **Main class**: `com.dalrae.expensetracker.Application`
+4. Click **OK** and run
+
+### Access URLs
+
+- **API Base**: http://localhost:8080/
+- **OData Service**: http://localhost:8080/catalog/
+- **Budget Management**: http://localhost:8080/budget/webapp/index.html
+- **Transactions**: http://localhost:8080/transactions/webapp/index.html
 
 ### Mock Users
 
@@ -113,15 +136,6 @@ expense-tracker/
 ### Custom Actions
 - `markAsReviewed()`: Mark transaction as reviewed
 - `flagForAudit()`: Flag transaction for audit
-
-## Configuration
-
-### Change Currency
-
-Update default currency in:
-- `db/schema.cds`
-- `srv/src/main/java/.../handlers/CatalogServiceHandler.java`
-- Frontend controllers
 
 ## API Endpoints
 
